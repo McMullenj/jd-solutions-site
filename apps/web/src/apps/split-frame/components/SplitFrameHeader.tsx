@@ -2,14 +2,17 @@ import { Link, useLocation } from 'react-router-dom';
 import { scrollToFeatures } from '../scrollToFeatures';
 import { SplitFrameLogo } from './SplitFrameLogo';
 
+const LOGIN_HREF = '/split-frame/app/login';
+
 type NavItem =
   | { label: string; href: string; hash: string; scroll?: false }
-  | { label: string; href: string; hash: string; scroll: true };
+  | { label: string; href: string; hash: string; scroll: true }
+  | { label: string; href: string; app: true };
 
 const navItems: NavItem[] = [
   { label: 'Overview', href: '/split-frame', hash: '' },
   { label: 'Features', href: '/split-frame', hash: '#features', scroll: true },
-  { label: 'Build', href: '/split-frame', hash: '#features', scroll: true },
+  { label: 'Login', href: LOGIN_HREF, app: true },
 ];
 
 export function SplitFrameHeader() {
@@ -28,6 +31,14 @@ export function SplitFrameHeader() {
           {navItems.map((item) => {
             const isOverview = item.label === 'Overview';
             const isActive = onSplitFrame && isOverview;
+
+            if ('app' in item && item.app) {
+              return (
+                <a key={item.label} className="sf-nav__link" href={item.href}>
+                  {item.label}
+                </a>
+              );
+            }
 
             if (item.scroll) {
               return (
@@ -55,9 +66,6 @@ export function SplitFrameHeader() {
         </nav>
 
         <div className="sf-header__actions">
-          <a className="sf-nav__link" href="/split-frame/app/login">
-            Login
-          </a>
           <button type="button" className="sf-btn sf-btn--primary sf-header__cta" onClick={scrollToFeatures}>
             Pre-order
           </button>
