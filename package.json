@@ -1,0 +1,17 @@
+{
+  "name": "jd-solutions-monorepo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --filter @jd-solutions/web dev",
+    "build": "pnpm build:product && pnpm build:site",
+    "build:site": "pnpm --filter @jd-solutions/web build",
+    "build:product": "node scripts/build-product.mjs",
+    "preview": "pnpm --filter @jd-solutions/web preview",
+    "capture:reference": "node tools/capture-reference.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,4 @@
+[submodule "split-frame"]
+	path = split-frame
+	url = https://github.com/McMullenj/desk-stat.git
+	branch = feature/commercial-architecture-implementation

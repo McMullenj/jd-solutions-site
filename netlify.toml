@@ -1,0 +1,17 @@
+[build]
+  command = "corepack enable && pnpm install --frozen-lockfile && git submodule update --init --recursive && pnpm build"
+  publish = "apps/web/dist"
+
+[build.environment]
+  GIT_SUBMODULE_STRATEGY = "recursive"
+  NODE_VERSION = "20"
+
+[[redirects]]
+  from = "/split-frame/app/*"
+  to = "/split-frame/app/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

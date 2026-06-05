@@ -1,0 +1,13 @@
+node_modules/
+dist/
+apps/web/dist/
+.netlify/
+.playwright-cli/
+.DS_Store
+npm-debug.log*
+*.tsbuildinfo
+
+# Local prompt and visual QA evidence are kept off the public repo.
+agentic-prompt.md
+qa/reference/
+qa/screenshots/
