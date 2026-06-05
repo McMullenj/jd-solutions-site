@@ -9,6 +9,10 @@ type NavItem =
   | { label: string; href: string; hash: string; scroll: true }
   | { label: string; href: string; app: true };
 
+function isAppNavItem(item: NavItem): item is { label: string; href: string; app: true } {
+  return 'app' in item;
+}
+
 const navItems: NavItem[] = [
   { label: 'Overview', href: '/split-frame', hash: '' },
   { label: 'Features', href: '/split-frame', hash: '#features', scroll: true },
@@ -32,7 +36,7 @@ export function SplitFrameHeader() {
             const isOverview = item.label === 'Overview';
             const isActive = onSplitFrame && isOverview;
 
-            if ('app' in item && item.app) {
+            if (isAppNavItem(item)) {
               return (
                 <a key={item.label} className="sf-nav__link" href={item.href}>
                   {item.label}
