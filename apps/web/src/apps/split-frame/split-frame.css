@@ -91,13 +91,15 @@ body {
   pointer-events: none;
 }
 
-.sf-stage > * {
+.sf-stage > .sf-hero {
   position: relative;
   z-index: 1;
 }
 
-/* Header */
+/* Header — above full-bleed hero layer */
 .sf-header {
+  position: relative;
+  z-index: 3;
   padding-top: 23px;
 }
 
@@ -150,10 +152,29 @@ body {
   color: var(--sf-ink);
   position: relative;
   padding-bottom: 20px;
+  cursor: pointer;
+  transition: color 140ms ease;
+}
+
+.sf-nav__link:hover {
+  color: var(--sf-accent-hover);
+}
+
+.sf-nav__link:active {
+  opacity: 0.88;
+}
+
+.sf-nav__link:focus-visible {
+  outline: 2px solid var(--sf-accent);
+  outline-offset: 4px;
+  border-radius: 2px;
 }
 
 .sf-nav__link--button {
   padding: 0 0 20px;
+  border: 0;
+  background: none;
+  font: inherit;
 }
 
 .sf-nav__link.is-active {
@@ -168,6 +189,7 @@ body {
   bottom: 0;
   height: 2px;
   background: var(--sf-accent);
+  pointer-events: none;
 }
 
 .sf-header__actions {
@@ -216,6 +238,10 @@ body {
   background: var(--sf-accent-hover);
 }
 
+.sf-btn--primary:active {
+  transform: scale(0.98);
+}
+
 .sf-header__cta.sf-btn--primary {
   width: 121px;
   min-height: 50px;
@@ -228,10 +254,17 @@ body {
   line-height: 1;
 }
 
-/* Hero copy */
+/* Hero copy — full stage, but must not block header interactions */
 .sf-hero {
   position: absolute;
   inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.sf-hero a,
+.sf-hero button {
+  pointer-events: auto;
 }
 
 .sf-shell--hero {
