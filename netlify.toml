@@ -7,8 +7,8 @@
   NODE_VERSION = "20"
 
 [[redirects]]
-  from = "/split-frame/app/*"
-  to = "/split-frame/app/index.html"
+  from = "/split-frame/*"
+  to = "/split-frame/index.html"
   status = 200
 
 [[redirects]]

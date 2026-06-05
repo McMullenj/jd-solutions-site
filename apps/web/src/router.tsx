@@ -5,25 +5,10 @@ const JdSolutionsApp = lazy(() =>
   import('@jd/JdSolutionsApp').then((module) => ({ default: module.JdSolutionsApp })),
 );
 
-const SplitFrameApp = lazy(() =>
-  import('@split-frame/SplitFrameApp').then((module) => ({ default: module.SplitFrameApp })),
-);
-
 function RouteDocumentTitle() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    if (pathname.startsWith('/split-frame')) {
-      document.title = 'Split Frame — Strava stats on your desk';
-      document
-        .querySelector('meta[name="description"]')
-        ?.setAttribute(
-          'content',
-          'A minimal e-paper display that keeps your Strava training stats front and centre.',
-        );
-      return;
-    }
-
     document.title = 'JD Solutions';
     document
       .querySelector('meta[name="description"]')
@@ -47,8 +32,6 @@ export function AppRouter() {
       <Suspense fallback={<PageFallback />}>
         <Routes>
           <Route path="/" element={<JdSolutionsApp />} />
-          <Route path="/split-frame" element={<SplitFrameApp />} />
-          <Route path="/split-frame/*" element={<SplitFrameApp />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Suspense>

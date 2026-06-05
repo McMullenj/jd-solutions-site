@@ -13,9 +13,9 @@ if (!splitFrameRoot) {
   process.exit(1);
 }
 
-function run(command, args, extraEnv = {}) {
+function run(cwd, command, args, extraEnv = {}) {
   const result = spawnSync(command, args, {
-    cwd: root,
+    cwd,
     stdio: 'inherit',
     env: {
       ...process.env,
@@ -27,24 +27,24 @@ function run(command, args, extraEnv = {}) {
   }
 }
 
-run('pnpm', ['-C', splitFrameRoot, 'install', '--frozen-lockfile']);
+run(root, 'pnpm', ['-C', splitFrameRoot, 'install', '--frozen-lockfile']);
 
-const productEnv = {
-  VITE_WEB_BASE_PATH: '/split-frame/app/',
+const siteEnv = {
+  VITE_SITE_BASE_PATH: '/split-frame/',
+  VITE_APP_BASE_PATH: '/split-frame/app',
   VITE_API_BASE_URL: process.env.VITE_API_BASE_URL ?? '',
   VITE_SUPABASE_URL: process.env.VITE_SUPABASE_URL ?? '',
   VITE_SUPABASE_ANON_KEY: process.env.VITE_SUPABASE_ANON_KEY ?? '',
   VITE_AUTH_MODE: process.env.VITE_AUTH_MODE ?? 'supabase',
 };
 
-// Build workspace packages the web app imports (@desk-stat/contracts, domain, etc.)
-run('pnpm', ['-C', splitFrameRoot, '--filter', '@desk-stat/web...', 'build'], productEnv);
+run(splitFrameRoot, 'node', ['scripts/build-public-site.mjs'], siteEnv);
 
 const sourceDist = resolve(splitFrameRoot, 'apps/web/dist');
-const targetDist = resolve(root, 'apps/web/dist/split-frame/app');
+const targetDist = resolve(root, 'apps/web/dist/split-frame');
 
 if (!existsSync(sourceDist)) {
-  console.error(`Product build output missing at ${sourceDist}`);
+  console.error(`Split Frame site build output missing at ${sourceDist}`);
   process.exit(1);
 }
 
@@ -52,4 +52,4 @@ rmSync(targetDist, { recursive: true, force: true });
 mkdirSync(targetDist, { recursive: true });
 cpSync(sourceDist, targetDist, { recursive: true });
 
-console.log(`Merged product bundle into ${targetDist}`);
+console.log(`Merged Split Frame public site into ${targetDist}`);

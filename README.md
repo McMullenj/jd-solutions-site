@@ -1,12 +1,13 @@
-# JD Solutions site (marketing + Split Frame product)
+# JD Solutions site (marketing + Split Frame submodule)
 
-Single Netlify deployment hosting two independent SPA bundles:
+Single Netlify deployment hosting two independent bundles:
 
 | Path | Bundle |
 | --- | --- |
-| `/` | JD Solutions marketing |
-| `/split-frame` | Split Frame landing |
-| `/split-frame/app/*` | Split Frame product (login, setup, dashboard) |
+| `/` | JD Solutions marketing SPA |
+| `/split-frame/*` | Split Frame public site (submodule: marketing + product) |
+
+Split Frame landing is at `/split-frame`; product routes remain at `/split-frame/app/*`.
 
 ## Local development
 
@@ -15,7 +16,12 @@ pnpm install
 pnpm dev
 ```
 
-Product app standalone dev still lives in the linked `split-frame/` checkout (`pnpm dev:web` from that repo).
+Split Frame standalone dev lives in the linked `split-frame/` checkout:
+
+```bash
+pnpm dev:web          # landing at /, product at /app/*
+pnpm build:public-site  # production base paths
+```
 
 ## Production build
 
@@ -23,7 +29,7 @@ Product app standalone dev still lives in the linked `split-frame/` checkout (`p
 pnpm build
 ```
 
-`build:product` resolves `split-frame/` (git submodule on CI) or `../split-frame` (sibling checkout for local monorepo layout), builds `@desk-stat/web` with `VITE_WEB_BASE_PATH=/split-frame/app/`, and merges output into `apps/web/dist/split-frame/app/`.
+`build:split-frame` resolves `split-frame/` (git submodule on CI) or `../split-frame` (sibling checkout), builds the unified `@desk-stat/web` bundle with `VITE_SITE_BASE_PATH=/split-frame/`, and merges output into `apps/web/dist/split-frame/`.
 
 ## Netlify
 
@@ -62,15 +68,15 @@ The legacy `split-frame.netlify.app` site is retired; production web traffic use
 
 ## Submodule
 
-`split-frame/` pins the product source at deploy time:
+`split-frame/` pins the full public site source at deploy time:
 
 ```bash
 git submodule update --init --recursive
 ```
 
-Update the pin after product releases:
+Update the pin after releases:
 
 ```bash
 cd split-frame && git fetch && git checkout <commit>
-cd .. && git add split-frame && git commit -m "chore: bump split-frame product pin"
+cd .. && git add split-frame && git commit -m "chore: bump split-frame pin"
 ```

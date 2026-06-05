@@ -18,7 +18,6 @@
     "baseUrl": ".",
     "paths": {
       "@jd/*": ["src/apps/jd-solutions/*"],
-      "@split-frame/*": ["src/apps/split-frame/*"],
       "@site/*": ["src/*"]
     },
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.tsbuildinfo"

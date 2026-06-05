@@ -9,8 +9,8 @@ Trigger from GitHub → **Actions** → **Deploy to Netlify** → **Run workflow
 The workflow:
 
 1. Checks out `main` with the `split-frame/` submodule pin
-2. Builds marketing + product (`pnpm build`)
-3. Verifies `/split-frame/app/` assets exist
+2. Builds JD marketing + Split Frame public site (`pnpm build`)
+3. Verifies `/split-frame/` unified site assets exist
 4. Uploads `apps/web/dist` to Netlify production
 
 Netlify site: **jd-solutions-site** (`https://jd-solutions-site.netlify.app`)

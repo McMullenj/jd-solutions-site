@@ -7,7 +7,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@jd': path.resolve(__dirname, 'src/apps/jd-solutions'),
-      '@split-frame': path.resolve(__dirname, 'src/apps/split-frame'),
       '@site': path.resolve(__dirname, 'src'),
     },
   },

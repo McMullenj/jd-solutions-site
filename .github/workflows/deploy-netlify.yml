@@ -62,12 +62,12 @@ jobs:
       - name: Build combined site
         run: pnpm build
 
-      - name: Verify product bundle paths
+      - name: Verify Split Frame site bundle paths
         run: |
           set -euo pipefail
           test -f apps/web/dist/index.html
-          test -f apps/web/dist/split-frame/app/index.html
-          grep -q '/split-frame/app/assets/' apps/web/dist/split-frame/app/index.html
+          test -f apps/web/dist/split-frame/index.html
+          grep -q '/split-frame/assets/' apps/web/dist/split-frame/index.html
 
       - name: Deploy to Netlify
         env:
