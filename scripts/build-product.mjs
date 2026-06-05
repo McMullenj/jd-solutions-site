@@ -37,7 +37,8 @@ const productEnv = {
   VITE_AUTH_MODE: process.env.VITE_AUTH_MODE ?? 'supabase',
 };
 
-run('pnpm', ['-C', splitFrameRoot, '--filter', '@desk-stat/web', 'build'], productEnv);
+// Build workspace packages the web app imports (@desk-stat/contracts, domain, etc.)
+run('pnpm', ['-C', splitFrameRoot, '--filter', '@desk-stat/web...', 'build'], productEnv);
 
 const sourceDist = resolve(splitFrameRoot, 'apps/web/dist');
 const targetDist = resolve(root, 'apps/web/dist/split-frame/app');
