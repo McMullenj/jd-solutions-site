@@ -40,6 +40,11 @@ Set on the Netlify site (not in git):
 - `VITE_SUPABASE_ANON_KEY`
 - `VITE_AUTH_MODE=supabase`
 
+## GitHub Actions
+
+- **Manual Netlify deploy:** Actions → **Deploy to Netlify** (see [`docs/github-actions.md`](docs/github-actions.md) for secrets)
+- **Submodule bumps:** automatic when split-frame `main` merges (workflow in split-frame repo)
+
 ## Deploy from split-frame repo
 
 ```bash
