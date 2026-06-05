@@ -17,6 +17,7 @@ jobs:
     environment: production
     env:
       NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      NETLIFY_FILTER: '@jd-solutions/web'
       VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
       VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
       VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
@@ -82,5 +83,6 @@ jobs:
             --prod \
             --dir=apps/web/dist \
             --site="$NETLIFY_SITE_ID" \
+            --filter="$NETLIFY_FILTER" \
             --message="$label" \
             --auth="$NETLIFY_AUTH_TOKEN"
