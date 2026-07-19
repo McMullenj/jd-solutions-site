@@ -10,6 +10,7 @@
     "build:product": "node scripts/build-split-frame-site.mjs",
     "build:split-frame": "node scripts/build-split-frame-site.mjs",
     "preview": "pnpm --filter @jd-solutions/web preview",
+    "test:axel-isolation": "node --test apps/web/src/axel-proxy.isolation.test.ts",
     "capture:reference": "node tools/capture-reference.mjs"
   },
   "engines": {
