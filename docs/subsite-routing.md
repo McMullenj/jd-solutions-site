@@ -30,3 +30,12 @@ AXEL_DEV_ORIGIN=http://127.0.0.1:3000 pnpm dev
 ```bash
 pnpm test:axel-isolation
 ```
+
+## Production cutover
+
+Merge this branch / PR, then deploy JD Netlify production so `/axel/*` becomes the
+live status-200 proxy. Axel content continues to deploy from FigureItOut to
+`axelskating.netlify.app` independently.
+
+FigureItOut cutover checklist:
+`docs/production/axel-jd-subsite-cutover.md` in the FigureItOut repository.
