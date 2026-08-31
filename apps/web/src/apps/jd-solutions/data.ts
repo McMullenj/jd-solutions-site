@@ -19,7 +19,7 @@ export const services: Service[] = [
 ];
 
 export const workTiles: WorkTile[] = [
-  { label: 'Split Frame', meta: '01', tone: 'ink', href: '/split-frame' },
+  { label: 'Split Frame', meta: '01', tone: 'ink', href: 'https://split-frame.netlify.app' },
   { label: 'Product', meta: '02', tone: 'paper' },
   { label: 'Platform', meta: '03', tone: 'signal' },
   { label: 'Internal Tool', meta: '04', tone: 'steel' },

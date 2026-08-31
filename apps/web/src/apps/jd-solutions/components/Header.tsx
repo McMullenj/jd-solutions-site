@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+
+const splitFrameUrl = 'https://split-frame.netlify.app';
 
 const navItems = [
   { label: 'Work', href: '#work' },
-  { label: 'Split Frame', href: '/split-frame', isRoute: true },
+  { label: 'Split Frame', href: splitFrameUrl, isExternal: true },
   { label: 'Studio', href: '#studio' },
   { label: 'Contact', href: '#contact' },
 ] as const;
@@ -23,10 +24,10 @@ export function Header({ contactHref }: HeaderProps) {
 
       <nav className="desktop-nav" aria-label="Primary navigation">
         {navItems.map((item) =>
-          'isRoute' in item && item.isRoute ? (
-            <Link key={item.label} to={item.href}>
+          'isExternal' in item && item.isExternal ? (
+            <a key={item.label} href={item.href} target="_blank" rel="noreferrer">
               {item.label}
-            </Link>
+            </a>
           ) : (
             <a key={item.label} href={item.href}>
               {item.label}
@@ -53,10 +54,10 @@ export function Header({ contactHref }: HeaderProps) {
 
       <div id="mobile-menu" className={`mobile-menu ${open ? 'is-open' : ''}`}>
         {navItems.map((item) =>
-          'isRoute' in item && item.isRoute ? (
-            <Link key={item.label} to={item.href} onClick={() => setOpen(false)}>
+          'isExternal' in item && item.isExternal ? (
+            <a key={item.label} href={item.href} target="_blank" rel="noreferrer" onClick={() => setOpen(false)}>
               {item.label}
-            </Link>
+            </a>
           ) : (
             <a key={item.label} href={item.href} onClick={() => setOpen(false)}>
               {item.label}
