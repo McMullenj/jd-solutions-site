@@ -18,19 +18,14 @@ jobs:
     env:
       NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
       NETLIFY_FILTER: '@jd-solutions/web'
-      VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
-      VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
-      VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
-      VITE_AUTH_MODE: ${{ secrets.VITE_AUTH_MODE || 'supabase' }}
     steps:
       - name: Validate required secrets
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          SUBMODULE_ACCESS_TOKEN: ${{ secrets.SUBMODULE_ACCESS_TOKEN }}
         run: |
           set -euo pipefail
           missing=0
-          for key in SUBMODULE_ACCESS_TOKEN NETLIFY_AUTH_TOKEN NETLIFY_SITE_ID VITE_API_BASE_URL VITE_SUPABASE_URL VITE_SUPABASE_ANON_KEY; do
+          for key in NETLIFY_AUTH_TOKEN NETLIFY_SITE_ID; do
             if [[ -z "${!key:-}" ]]; then
               echo "::error::Missing GitHub secret: ${key}"
               missing=1
@@ -42,10 +37,6 @@ jobs:
           fi
 
       - uses: actions/checkout@v4
-        with:
-          # Default GITHUB_TOKEN cannot read private submodule McMullenj/split-frame.
-          token: ${{ secrets.SUBMODULE_ACCESS_TOKEN }}
-          submodules: recursive
 
       - uses: pnpm/action-setup@v4
         with:
@@ -59,15 +50,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build combined site
-        run: pnpm build
+      - name: Build marketing site
+        run: pnpm build:site
 
-      - name: Verify Split Frame site bundle paths
-        run: |
-          set -euo pipefail
-          test -f apps/web/dist/index.html
-          test -f apps/web/dist/split-frame/index.html
-          grep -q '/split-frame/assets/' apps/web/dist/split-frame/index.html
+      - name: Verify site bundle
+        run: test -f apps/web/dist/index.html
 
       - name: Deploy to Netlify
         env:

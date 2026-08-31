@@ -1,4 +1,0 @@
-[submodule "split-frame"]
-	path = split-frame
-	url = https://github.com/McMullenj/split-frame.git
-	branch = main
