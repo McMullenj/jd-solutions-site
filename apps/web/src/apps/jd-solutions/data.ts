@@ -19,8 +19,8 @@ export const services: Service[] = [
 ];
 
 export const workTiles: WorkTile[] = [
-  { label: 'Split Frame', meta: '01', tone: 'ink', href: '/split-frame' },
-  { label: 'Product', meta: '02', tone: 'paper' },
+  { label: 'Split Frame', meta: '01', tone: 'ink', href: '/split-frame/' },
+  { label: 'Axel', meta: '02', tone: 'paper', href: '/axel/' },
   { label: 'Platform', meta: '03', tone: 'signal' },
   { label: 'Internal Tool', meta: '04', tone: 'steel' },
   { label: 'Automation', meta: '05', tone: 'ink' },

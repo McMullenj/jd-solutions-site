@@ -1,3 +1,5 @@
+# Netlify configuration for JD Solutions (public proxy host)
+
 [build]
   command = "corepack enable && pnpm install --frozen-lockfile && git submodule update --init --recursive && pnpm build"
   publish = "apps/web/dist"
@@ -5,6 +7,13 @@
 [build.environment]
   GIT_SUBMODULE_STRATEGY = "recursive"
   NODE_VERSION = "20"
+
+# Axel is an independently deployed Netlify origin. Proxy preserves the JD URL.
+[[redirects]]
+  from = "/axel/*"
+  to = "https://axelskating.netlify.app/axel/:splat"
+  status = 200
+  force = true
 
 [[redirects]]
   from = "/split-frame/*"
@@ -15,3 +24,10 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[[headers]]
+  for = "/axel/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"

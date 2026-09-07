@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { workTiles } from '../data';
 
 export function Work() {
@@ -26,11 +25,12 @@ export function Work() {
             </>
           );
 
+          // Product subsites are served by Netlify (proxy or static), not JD React routes.
           if (tile.href) {
             return (
-              <Link className={className} to={tile.href} key={tile.label}>
+              <a className={className} href={tile.href} key={tile.label}>
                 {content}
-              </Link>
+              </a>
             );
           }
 
@@ -44,4 +44,3 @@ export function Work() {
     </section>
   );
 }
-
